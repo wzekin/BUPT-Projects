@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/">
+        <file>entrypoint.qml</file>
+        <file>assert/login_background.png</file>
+        <file>login.qml</file>
+        <file>main.qml</file>
+        <file>assert/613927.jpg</file>
+        <file>assert/thumb-1920-235203.png</file>
+    </qresource>
+</RCC>
