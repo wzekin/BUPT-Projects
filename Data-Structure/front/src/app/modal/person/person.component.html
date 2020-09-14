@@ -1,0 +1,34 @@
+<nz-modal
+  [nzVisible]="isVisible"
+  [nzFooter]="null"
+  nzTitle="旅客信息"
+  (nzOnCancel)="setFalse()"
+  (nzAfterOpen)="update()"
+>
+  <nz-table #basicTable [nzData]="people" *ngIf="isVisible">
+    <thead>
+      <tr>
+        <th>起始城市</th>
+        <th>目的城市</th>
+        <th>当前状态</th>
+        <th>当前城市</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of basicTable.data; index as i">
+        <td>{{ cityName[data.start_city] }}</td>
+        <td>{{ cityName[data.end_city] }}</td>
+        <td>
+          <nz-tag *ngIf="data.statu === 0" [nzColor]="'green'">已到达</nz-tag>
+          <nz-tag *ngIf="data.statu === 1" [nzColor]="'purple'">等待中</nz-tag>
+          <nz-tag *ngIf="data.statu === 2" [nzColor]="'volcano'"
+            >乘坐交通工具中</nz-tag
+          >
+        </td>
+        <td>
+          {{ data.statu_value }}
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-modal>

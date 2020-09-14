@@ -1,0 +1,31 @@
+<nz-modal
+  [nzVisible]="isVisible"
+  (nzOnCancel)="setFalse()"
+  (nzOnOk)="handleOk()"
+  (nzAfterOpen)="handleAfterOpen()"
+  nzTitle="修改城市信息"
+>
+  <nz-table #basicTable [nzData]="modelService.cityInfo">
+    <thead>
+      <tr>
+        <th>城市名称</th>
+        <th>风险</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of basicTable.data; index as i">
+        <td>{{ data.name }}</td>
+        <td>
+          <nz-select
+            ngModel="{{ data.risk_level }}"
+            (ngModelChange)="ModelChange($event, i)"
+          >
+            <nz-option nzLabel="高风险" nzValue="{{ 0 }}"></nz-option>
+            <nz-option nzLabel="中风险" nzValue="{{ 1 }}"></nz-option>
+            <nz-option nzLabel="低风险" nzValue="{{ 2 }}"></nz-option>
+          </nz-select>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-modal>

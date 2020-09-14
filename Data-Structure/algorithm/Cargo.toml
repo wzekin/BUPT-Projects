@@ -1,0 +1,22 @@
+[package]
+name = "zekin_data_structure"
+version = "1.0.0"
+authors = ["zekin <wzekin@gmail.com>"]
+edition = "2018"
+description = "数据结构课设--COVID-19疫情环境下低风险旅行模拟系统的设计(Rust 算法部分)"
+documentation = "https://docs.rs/zekin_data_structure"
+license = "MIT"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[lib]
+crate-type = ["cdylib","rlib"]
+
+[dependencies]
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0.53"
+getset = "0.1.1"
+itertools = "0.9.0"
+js-sys = "0.3.39"
+wasm-bindgen = {version = "0.2.26", features = ["serde-serialize"] }
+wasm-bindgen-test = "0.3.12"
+float-cmp = "^0.8.0"

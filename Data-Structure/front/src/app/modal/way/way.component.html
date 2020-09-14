@@ -1,0 +1,142 @@
+<nz-modal
+  [nzVisible]="isVisible"
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()"
+  (nzAfterOpen)="handleAfterOpen()"
+  nzTitle="修改交通工具信息"
+  [nzWidth]="1000"
+>
+  <form [formGroup]="validateForm">
+    <nz-table #basicTable [nzData]="wayData">
+      <thead>
+        <tr>
+          <th>起始城市</th>
+          <th>目的城市</th>
+          <th>交通工具</th>
+          <th>开始时间</th>
+          <th>花费时间</th>
+          <th>
+            <a (click)="addField()">Add New</a>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of basicTable.data; index as i">
+          <ng-container *ngIf="edit_id != data.id; else editTemplate">
+            <td>{{ cityName[data.start_city] }}</td>
+            <td>{{ cityName[data.end_city] }}</td>
+            <td>{{ typeName[data.type] }}</td>
+            <td>{{ data.start_time }}</td>
+            <td>{{ data.cost_time }}</td>
+            <td>
+              <a (click)="startEdit(data.id)" class="save">Edit</a>
+              <a (click)="deleteField(data.id)">Delete</a>
+            </td>
+          </ng-container>
+          <ng-template #editTemplate>
+            <td>
+              <nz-form-item>
+                <nz-form-control nzValidatingTip="Validating...">
+                  <nz-select
+                    formControlName="start_city"
+                    (ngModelChange)="validateRepeatValue()"
+                  >
+                    <nz-option
+                      *ngFor="let key of cityName; index as i"
+                      [nzLabel]="key"
+                      [nzValue]="i"
+                    ></nz-option>
+                  </nz-select>
+                </nz-form-control>
+              </nz-form-item>
+            </td>
+            <td>
+              <nz-form-item>
+                <nz-form-control [nzErrorTip]="end_city_tip">
+                  <nz-select formControlName="end_city">
+                    <nz-option
+                      *ngFor="let key of cityName; index as i"
+                      [nzLabel]="key"
+                      [nzValue]="i"
+                    ></nz-option>
+                  </nz-select>
+                  <ng-template #end_city_tip let-control>
+                    <ng-container *ngIf="control.hasError('repeat')">
+                      起始城市不能与目的城市相同
+                    </ng-container>
+                  </ng-template>
+                </nz-form-control>
+              </nz-form-item>
+            </td>
+            <td>
+              <nz-form-item>
+                <nz-form-control [nzErrorTip]="type_tip">
+                  <nz-select formControlName="type">
+                    <nz-option nzLabel="汽车" [nzValue]="0"></nz-option>
+                    <nz-option nzLabel="火车" [nzValue]="1"></nz-option>
+                    <nz-option nzLabel="飞机" [nzValue]="2"></nz-option>
+                  </nz-select>
+                  <ng-template #type_tip let-control>
+                    <ng-container *ngIf="control.hasError('air')">
+                      飞机班数不得超过10班
+                    </ng-container>
+                    <ng-container *ngIf="control.hasError('train')">
+                      火车班数不得超过30班
+                    </ng-container>
+                  </ng-template>
+                </nz-form-control>
+              </nz-form-item>
+            </td>
+            <td>
+              <nz-form-item>
+                <nz-form-control [nzErrorTip]="start_time_tip">
+                  <input
+                    nz-input
+                    type="number"
+                    nz-input
+                    formControlName="start_time"
+                  />
+                  <ng-template #start_time_tip let-control>
+                    <ng-container *ngIf="control.hasError('max')">
+                      开始时间必须小于24
+                    </ng-container>
+                    <ng-container *ngIf="control.hasError('min')">
+                      开始时间必须大于等于0
+                    </ng-container>
+                    <ng-container *ngIf="control.hasError('required')">
+                      请输入开始时间
+                    </ng-container>
+                  </ng-template>
+                </nz-form-control>
+              </nz-form-item>
+            </td>
+            <td>
+              <nz-form-item>
+                <nz-form-control [nzErrorTip]="cost_time_tip">
+                  <input
+                    nz-input
+                    type="number"
+                    nz-input
+                    formControlName="cost_time"
+                  />
+                </nz-form-control>
+                <ng-template #cost_time_tip let-control>
+                  <ng-container *ngIf="control.hasError('min')">
+                    开始时间必须大于0
+                  </ng-container>
+                  <ng-container *ngIf="control.hasError('required')">
+                    请输入花费时间
+                  </ng-container>
+                </ng-template>
+              </nz-form-item>
+            </td>
+            <td>
+              <a (click)="saveEdit(data.id)" class="save">Save</a>
+              <a (click)="cancelEdit(data.id)">Cancel</a>
+            </td>
+          </ng-template>
+        </tr>
+      </tbody>
+    </nz-table>
+  </form>
+</nz-modal>

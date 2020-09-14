@@ -1,0 +1,53 @@
+<nz-modal
+  [nzVisible]="isVisible"
+  nzTitle="添加旅客信息"
+  (nzOnOk)="handleOk()"
+  (nzOnCancel)="setFalse()"
+>
+  <form nz-form [formGroup]="validateForm">
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>起始城市</nz-form-label>
+      <nz-form-control [nzSpan]="12">
+        <nz-select
+          formControlName="start_city"
+          (ngModelChange)="validateRepeatValue()"
+        >
+          <nz-option
+            *ngFor="let key of cityName; index as i"
+            [nzLabel]="key"
+            [nzValue]="i"
+          ></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>目的城市</nz-form-label>
+      <nz-form-control nzHasFeedback [nzErrorTip]="end_city_tip" [nzSpan]="12">
+        <nz-select formControlName="end_city">
+          <nz-option
+            *ngFor="let key of cityName; index as i"
+            [nzLabel]="key"
+            [nzValue]="i"
+          ></nz-option>
+        </nz-select>
+        <ng-template #end_city_tip let-control>
+          <ng-container *ngIf="control.hasError('repeat')">
+            起始城市不能与目的城市相同
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzNoColon></nz-form-label>
+      <nz-form-control [nzSpan]="12">
+        <label nz-checkbox formControlName="has_time_limit">时间限制</label>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item *ngIf="validateForm.controls.has_time_limit.value">
+      <nz-form-label [nzSpan]="7" nzRequired>时间限制</nz-form-label>
+      <nz-form-control nzErrorTip="时间必须大于0" [nzSpan]="12">
+        <input nz-input type="number" nz-input formControlName="time_limit" />
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-modal>

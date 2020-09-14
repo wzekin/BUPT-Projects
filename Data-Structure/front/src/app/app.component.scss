@@ -1,0 +1,69 @@
+.logo {
+  font-size: larger;
+}
+
+[nz-menu] {
+  line-height: 64px;
+}
+
+.header-menu {
+  line-height: 64px;
+}
+
+nz-content {
+  padding: 30px 50px 0 50px;
+}
+
+nz-footer {
+  text-align: center;
+}
+
+nz-layout {
+  height: 100%;
+  width: 100%;
+}
+
+.inner-content {
+  background: #fff;
+  padding: 24px;
+  height: 100%;
+  width: 100%;
+}
+
+.model_time {
+  position: absolute;
+  bottom: 80px;
+  right: 60px;
+}
+
+.model_add {
+  position: absolute;
+  bottom: 130px;
+  right: 60px;
+}
+
+.info {
+  z-index: 999;
+  position: absolute;
+  bottom: 140px;
+  left: 100px;
+
+  min-width: 100px;
+  min-height: 40px;
+}
+
+.info span {
+  font: normal bold 16px "微软雅黑";
+}
+
+.info::before {
+  z-index: -1;
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgb(247, 247, 247, 0.7);
+  margin: -10px;
+}
